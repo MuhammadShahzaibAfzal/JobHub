@@ -37,6 +37,13 @@ const jobSchema = new Schema({
     default: "Open",
   },
   createdAt: { type: Date, default: Date.now },
+  numberOfSeats: {
+    type: Number,
+    default: 1,
+  },
+  location: {
+    type: String,
+  },
   applications: [
     {
       type: Schema.Types.ObjectId,
