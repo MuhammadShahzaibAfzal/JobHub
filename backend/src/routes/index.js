@@ -14,7 +14,7 @@ router.post("/change-password", authController.changePassword);
 
 router.post("/jobs", jobController.createJob);
 router.get("/jobs", jobController.getJobs);
-router.get("/jobs/:_Id", jobController.getJob);
+router.get("/jobs/:_id", jobController.getJob);
 router.put("/jobs/:_id", jobController.updateJob);
 router.delete("/jobs/:_id", jobController.deleteJob);
 
