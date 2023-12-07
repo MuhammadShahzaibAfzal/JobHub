@@ -12,3 +12,13 @@ export const createJobSchema = Joi.object({
   numberOfSeats: Joi.number().min(1).max(20).required(),
   location: Joi.string().required(),
 });
+
+export const submitApplicationSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  contactNumber: Joi.string()
+    .pattern(/^(?:\+92\d{10}|03\d{9})$/)
+    .required(),
+  coverLetter: Joi.string().required(),
+  currentlyEmployed: Joi.boolean().required(),
+});

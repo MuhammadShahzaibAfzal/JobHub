@@ -2,6 +2,37 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
+const applcationSchema = {
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  contactNumber: {
+    type: String,
+    required: true,
+  },
+  coverLetter: {
+    type: String,
+    required: true,
+  },
+  currentlyEmployed: {
+    type: Boolean,
+    required: true,
+  },
+  cvPath: {
+    type: String,
+    required: true,
+  },
+  applicationDate: {
+    type: Date,
+    default: Date.now,
+  },
+};
+
 const jobSchema = new Schema({
   title: {
     type: String,
@@ -44,12 +75,7 @@ const jobSchema = new Schema({
   location: {
     type: String,
   },
-  applications: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Application",
-    },
-  ],
+  applications: [applcationSchema],
 });
 
 const JobModel = mongoose.model("Job", jobSchema);
