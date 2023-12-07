@@ -11,7 +11,15 @@ const jobSchema = new Schema({
     type: String,
     required: true,
   },
+  minExperience: {
+    type: String,
+    default: "Fresh Graduate",
+  },
   requirements: {
+    type: String,
+    required: true,
+  },
+  responsibilities: {
     type: String,
     required: true,
   },
@@ -19,8 +27,16 @@ const jobSchema = new Schema({
     type: Date,
     required: true,
   },
+  level: {
+    type: String,
+    enum: ["Entry", "Mid", "Senior", "Intern"],
+  },
+  status: {
+    type: String,
+    enum: ["Open", "Closed"],
+    default: "Open",
+  },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date },
   applications: [
     {
       type: Schema.Types.ObjectId,
