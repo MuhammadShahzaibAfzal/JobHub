@@ -40,7 +40,7 @@ const JobCard = () => {
           <Link to="/jobs/11" className="btn btnPrimaryOutline mr-4">
             View Details
           </Link>
-          <Link to="/" className="btn btnPrimary">
+          <Link to="/apply/1" className="btn btnPrimary">
             Apply Now
           </Link>
         </div>

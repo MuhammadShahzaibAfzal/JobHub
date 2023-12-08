@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { JobDetail, JobList } from "./pages";
+import { ApplyJob, JobDetail, JobList } from "./pages";
 
 const App = () => {
   return (
@@ -7,6 +7,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<JobList />} />
         <Route path="/jobs/:_id" element={<JobDetail />} />
+        <Route path="/apply/:_id" element={<ApplyJob />} />
       </Routes>
     </div>
   );

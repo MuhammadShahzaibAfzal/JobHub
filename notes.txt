@@ -1,0 +1,6 @@
+React Query:  async state management tool
+    Caching
+    Retry
+
+Two concepts in React Query:
+
