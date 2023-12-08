@@ -1,60 +1,82 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import { useQuery } from "react-query";
+import { getJob } from "../http";
+import moment from "moment";
+
+const STALE_TIME = 300000;
 
 const JobDetail = () => {
+  const { _id } = useParams();
+  const { data, isLoading, error } = useQuery(
+    ["jobs", _id],
+    async () => {
+      return getJob(_id);
+    },
+    {
+      staleTime: STALE_TIME,
+      keepPreviousData: true,
+    }
+  );
+  const job = data?.job;
+  if (isLoading) {
+    return <h2>Loading....</h2>;
+  }
+  if (error) {
+    return <h2>{error?.message}</h2>;
+  }
   return (
     <div className="text-lg">
       <Navbar />
       <div className="cardWrapper shadow-md rounded-md p-8 leading-7 border-2 border-gray-200">
         <div className="heading text-center">
-          <h1>Django Developer Required</h1>
+          <h1>{job?.title}</h1>
         </div>
         <div className="my-4">
           <span className="font-bold mr-3">Status :</span>
-          <span className="badge badgeSm badgeSuccess">Open</span>
+          <span
+            className={`badge badgeSm ${
+              job?.status === "Open" ? "badgeSuccess" : "badgeDanger"
+            }`}
+          >
+            {job?.status}
+          </span>
         </div>
         <p className="my-3">
-          <span className="font-bold mr-3">Level :</span>Mid
+          <span className="font-bold mr-3">Level :</span>
+          {job?.level}
         </p>
         <p className="my-3 ">
-          <span className="font-bold mr-3">Minimum Experience :</span>3 years
+          <span className="font-bold mr-3">Minimum Experience :</span>
+          {job?.minExperience}
         </p>
         <h2 className="my-4 font-bold text-xl">Job Responsibilities</h2>
-        <ul>
-          <li>Minimum of 3 years of relevant experience</li>
-          <li>Bachelor's degree in Computer Science or related field</li>
-          <li>Proficient in programming languages such as Java or Python</li>
-          <li>Excellent problem-solving skills</li>
-        </ul>
+        {job?.responsibilities}
         <h2 className="my-4 font-bold text-xl">Requirements</h2>
-        <ul>
-          <li>Develop and maintain software applications</li>
-          <li>Collaborate with cross-functional teams</li>
-          <li>Conduct code reviews and provide constructive feedback</li>
-          <li>Troubleshoot and debug issues</li>
-        </ul>
+        {job?.requirements}
         <div className="flex flex-col md:flex-row  md:gap-10 my-4 ">
           <p>
-            <span className="font-bold">Seats </span>: 2
+            <span className="font-bold">Seats </span>: {job?.numberOfSeats}
           </p>
           <p>
-            <span className="font-bold">Posted</span> : 06 December 2023
+            <span className="font-bold">Posted</span> :{" "}
+            {moment(job?.createdAt).format("DD MMMM YYYY")}
           </p>
         </div>
         <div className="flex flex-col md:flex-row md:gap-10 ">
           <p>
-            <span className="font-bold">Location</span>: Jhelum
+            <span className="font-bold">Location</span>: {job?.location}
           </p>
           <p>
-            <span className="font-bold">Apply before</span>: 30 December 2023
+            <span className="font-bold">Apply before</span>:{" "}
+            {moment(job?.duedate).format("DD MMMM YYYY")}
           </p>
         </div>
         <div className="mt-8">
-          <Link to="/jobs/11" className="btn btnPrimaryOutline mr-4">
-            Share
+          <Link to="/" className="btn btnPrimaryOutline mr-4">
+            Go Back
           </Link>
-          <Link to="/" className="btn btnPrimary">
+          <Link to={`/apply/${job?._id}`} className="btn btnPrimary">
             Apply Now
           </Link>
         </div>

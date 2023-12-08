@@ -3,4 +3,8 @@ React Query:  async state management tool
     Retry
 
 Two concepts in React Query:
+    Query --> For fetch
+    Mutation --> For mutate , post, delete , update
+
+
 

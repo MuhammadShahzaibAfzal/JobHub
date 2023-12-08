@@ -43,7 +43,7 @@ body {
   .badgeSuccess {
     @apply bg-green-500;
   }
-  .badgeDange {
+  .badgeDanger {
     @apply bg-red-500;
   }
 

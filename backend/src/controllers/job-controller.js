@@ -23,6 +23,9 @@ class JobController {
     const limit = parseInt(req.query.limit || 4);
     const q = req.query.q || "";
     const titleRegex = new RegExp(q, "i");
+    // for (let i = 0; i < 10000000; i++) {
+    //   i++;
+    // }
     try {
       const jobs = await JobModel.find({ title: titleRegex }, "-__v")
         .skip(skip)
