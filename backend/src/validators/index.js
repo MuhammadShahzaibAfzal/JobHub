@@ -16,9 +16,9 @@ export const createJobSchema = Joi.object({
 export const submitApplicationSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
-  contactNumber: Joi.string()
+  contactNo: Joi.string()
     .pattern(/^(?:\+92\d{10}|03\d{9})$/)
     .required(),
   coverLetter: Joi.string().required(),
-  currentlyEmployed: Joi.boolean().required(),
+  currentlyEmployed: Joi.string().required(),
 });

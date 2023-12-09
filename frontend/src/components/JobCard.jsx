@@ -44,7 +44,10 @@ const JobCard = ({ job }) => {
             View Details
           </Link>
           {job?.status === "Open" && (
-            <Link to={`/apply/${job?._id}`} className="btn btnPrimary">
+            <Link
+              to={`/apply/${job?.title}/${job?._id}`}
+              className="btn btnPrimary"
+            >
               Apply Now
             </Link>
           )}

@@ -11,7 +11,7 @@ const applcationSchema = {
     type: String,
     required: true,
   },
-  contactNumber: {
+  contactNo: {
     type: String,
     required: true,
   },
@@ -20,7 +20,7 @@ const applcationSchema = {
     required: true,
   },
   currentlyEmployed: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   cvPath: {

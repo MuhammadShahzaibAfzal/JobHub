@@ -1,13 +1,14 @@
-import { Link, useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getJob } from "../http";
 import moment from "moment";
+import Loader from "../components/Loader";
 
 const STALE_TIME = 300000;
 
 const JobDetail = () => {
   const { _id } = useParams();
+  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery(
     ["jobs", _id],
     async () => {
@@ -20,14 +21,13 @@ const JobDetail = () => {
   );
   const job = data?.job;
   if (isLoading) {
-    return <h2>Loading....</h2>;
+    return <Loader />;
   }
   if (error) {
     return <h2>{error?.message}</h2>;
   }
   return (
     <div className="text-lg">
-      <Navbar />
       <div className="cardWrapper shadow-md rounded-md p-8 leading-7 border-2 border-gray-200">
         <div className="heading text-center">
           <h1>{job?.title}</h1>
@@ -73,10 +73,18 @@ const JobDetail = () => {
           </p>
         </div>
         <div className="mt-8">
-          <Link to="/" className="btn btnPrimaryOutline mr-4">
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="btn btnPrimaryOutline mr-4"
+          >
             Go Back
-          </Link>
-          <Link to={`/apply/${job?._id}`} className="btn btnPrimary">
+          </button>
+          <Link
+            to={`/apply/${job?.title}/${job?._id}`}
+            className="btn btnPrimary"
+          >
             Apply Now
           </Link>
         </div>
