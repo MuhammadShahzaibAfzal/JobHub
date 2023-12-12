@@ -32,6 +32,19 @@ class ApplicationController {
         if (!job) {
           return next(ErrorHandlerService.notFoundError("Job not found !"));
         }
+        // Check if application already exists based on some criteria (e.g., user email)
+        const existingApplication = job.applications.find(
+          (app) => app.email === req.body.email
+        );
+
+        if (existingApplication) {
+          // If application already exists, return an error message
+          return next(
+            ErrorHandlerService.badRequest(
+              "Application already submitted for this job !"
+            )
+          );
+        }
         job.applications.push({ ...req.body, cvPath: filePath });
         await job.save();
         return res.status(201).json({

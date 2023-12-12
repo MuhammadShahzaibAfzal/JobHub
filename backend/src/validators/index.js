@@ -22,3 +22,12 @@ export const submitApplicationSchema = Joi.object({
   coverLetter: Joi.string().required(),
   currentlyEmployed: Joi.string().required(),
 });
+
+export const loginValidationSchema = Joi.object({
+  email: Joi.string().required().email(),
+  password: Joi.string().required(),
+});
+
+export const forgetPasswordValidationSchema = Joi.object({
+  email: Joi.string().required().email(),
+});

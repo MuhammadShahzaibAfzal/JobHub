@@ -1,6 +1,21 @@
 import { config } from "dotenv";
 config();
+const {
+  PORT,
+  DEBUG_MODE,
+  DB_URL,
+  FRONTEND_URL,
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  FORGET_PASSWORD_TOKEN_SECRET,
+} = process.env;
 
-const { PORT, DEBUG_MODE, DB_URL, FRONTEND_URL } = process.env;
-
-export { PORT, DEBUG_MODE, DB_URL, FRONTEND_URL };
+export {
+  PORT,
+  DEBUG_MODE,
+  DB_URL,
+  FRONTEND_URL,
+  REFRESH_TOKEN_SECRET,
+  ACCESS_TOKEN_SECRET,
+  FORGET_PASSWORD_TOKEN_SECRET,
+};

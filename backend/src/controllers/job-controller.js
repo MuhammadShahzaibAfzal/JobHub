@@ -19,46 +19,42 @@ class JobController {
   }
 
   async getJobs(req, res, next) {
-    setTimeout(async () => {
-      const skip = parseInt(req.query.skip || 0);
-      const limit = parseInt(req.query.limit || 4);
-      const q = req.query.q || "";
-      const titleRegex = new RegExp(q, "i");
+    const skip = parseInt(req.query.skip || 0);
+    const limit = parseInt(req.query.limit || 4);
+    const q = req.query.q || "";
+    const titleRegex = new RegExp(q, "i");
 
-      try {
-        const jobs = await JobModel.find({ title: titleRegex }, "-__v")
-          .skip(skip)
-          .limit(limit);
-        const totalJobs = await JobModel.countDocuments({ title: titleRegex });
-        return res.status(200).json({
-          message: "List of Jobs",
-          status: 200,
-          jobs,
-          totalJobs,
-          skip,
-          limit,
-        });
-      } catch (error) {
-        next(error);
-      }
-    }, 3000);
+    try {
+      const jobs = await JobModel.find({ title: titleRegex }, "-__v")
+        .skip(skip)
+        .limit(limit);
+      const totalJobs = await JobModel.countDocuments({ title: titleRegex });
+      return res.status(200).json({
+        message: "List of Jobs",
+        status: 200,
+        jobs,
+        totalJobs,
+        skip,
+        limit,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
   async getJob(req, res, next) {
-    setTimeout(async () => {
-      const { _id } = req.params;
-      try {
-        const job = await JobModel.findById(_id);
-        if (!job) {
-          return next(ErrorHandlerService.notFoundError());
-        }
-        return res
-          .status(200)
-          .json({ status: 200, message: "Single Job", job: job });
-      } catch (error) {
-        return next(error);
+    const { _id } = req.params;
+    try {
+      const job = await JobModel.findById(_id);
+      if (!job) {
+        return next(ErrorHandlerService.notFoundError());
       }
-    }, 3000);
+      return res
+        .status(200)
+        .json({ status: 200, message: "Single Job", job: job });
+    } catch (error) {
+      return next(error);
+    }
   }
 
   async deleteJob(req, res, next) {

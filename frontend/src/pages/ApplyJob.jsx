@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
     .label("Contact Number"),
   coverLetter: Yup.string().required().label("Cover Letter"),
   currentlyEmployed: Yup.string().required().label("Employment Status"),
-  cv: Yup.mixed().required(),
+  cv: Yup.mixed().required().label("CV"),
 });
 
 const ApplyJob = () => {
@@ -44,8 +44,10 @@ const ApplyJob = () => {
         return data?.message;
       },
       error: (err) => {
-        console.log(err);
-        return "Something went wrong! please try again";
+        return (
+          err?.response?.data?.message ||
+          "Something went wrong! please try again"
+        );
       },
     });
   };
@@ -129,7 +131,7 @@ const ApplyJob = () => {
                   visible={touched.currentlyEmployed}
                 />
                 <FileInput
-                  label="Drop your CV"
+                  label="Attach your CV"
                   name="cv"
                   onChange={(e) => {
                     setFieldValue("cv", e.target.files[0]);

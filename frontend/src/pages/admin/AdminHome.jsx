@@ -1,14 +1,14 @@
-import JobCard from "../components/JobCard";
+import React from "react";
 import { useQuery } from "react-query";
-import { getJobs } from "../http";
 import { useSearchParams } from "react-router-dom";
-import Loader from "../components/Loader";
-import SearchBox from "../components/SearchBox";
-import Pagination from "../components/Pagination";
-
+import { getJobs } from "../../http";
+import SearchBox from "../../components/SearchBox";
+import Loader from "../../components/Loader";
+import Pagination from "../../components/Pagination";
+import JobCard from "../../components/JobCard";
 const STALE_TIME = 300000;
 
-const JobList = () => {
+const AdminHome = () => {
   const [searchParams, setSerachParams] = useSearchParams({
     skip: 0,
     limit: 2,
@@ -41,7 +41,6 @@ const JobList = () => {
   if (error) {
     return <h2>{error?.message}</h2>;
   }
-
   return (
     <div>
       <div className="heading text-center">
@@ -77,4 +76,4 @@ const JobList = () => {
   );
 };
 
-export default JobList;
+export default AdminHome;

@@ -4,16 +4,22 @@ import { Toaster } from "react-hot-toast";
 import { ApplyJob, JobDetail, JobList } from "./pages";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import WebsiteLayout from "./layouts/WebsiteLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import AdminHome from "./pages/admin/AdminHome";
 
 const App = () => {
   return (
     <div>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<JobList />} />
-        <Route path="/jobs/:_id" element={<JobDetail />} />
-        <Route path="/apply/:title/:_id" element={<ApplyJob />} />
+        <Route path="/" element={<WebsiteLayout />}>
+          <Route index element={<JobList />} />
+          <Route path="/jobs/:_id" element={<JobDetail />} />
+          <Route path="/apply/:title/:_id" element={<ApplyJob />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminHome />} />
+        </Route>
       </Routes>
       <ScrollToTop />
       <Toaster />
